@@ -71,59 +71,82 @@ Email  :: cholera@usc.edu\
    3. SSL or TLS when uploading messages using SMTP\
 \
       ---  Who needs to have keys registered and associated with their identity?\
+            --- Service providing server needs to have the key registered with their identity.\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3500\ql\qnatural\pardirnatural
 \cf0       ---  Where and for how long is the email protected, and what kinds of protections are \
             applied (e.g., confidentiality, integrity, non-repudiation).\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
-\cf0    \
+\cf0    	--- simply using SMTP does not protect email in any form. SMTP protocol was designed to be used among\
+                 group of four people who knew each other. Thus there was no concept of security when it was designed.\
+\
       ---  What are the issues associated with managing the security, and in particular, \
             which approach is more easily managed?\
+	--- Multihop smtp server to other smtp server authentication mechanism - it becomes difficult to use keys for\
+                 every other key, thus there is an option for not having any security between hops, which is often made use of.\
+            ---  Phishing attacks are possible very easily when only smtp is used with no other form of secure mechanism.\
+                  This could be easily managed by using SMTP in conjuction with either SMIME or PGP\
     \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3620\ql\qnatural\pardirnatural
 \cf0       ---  Consider several different attacks against email security, and explain which approach \
             is most suitable for protecting email against several different kinds of attacks. \
-\
+            ---- Integrity Attack : simple clear text mail transfer can open it to all sorts of attacks that are possible.\
+            ---- Man in the middle may tamper with the integrity of the message and change the message contents.\
+                   Confidentiality, Integrity and Authenticity can be easily exploited on system which uses simple smtp.\
+            ---- The authenticity of the end user is never tested in case of smtp : it is the association of the email id with \
+                   password, together used to ensure that the correct user is sending the message. Multifactor authentication\
+                   mechanisms should be used to overcome it. Using some form of mutual authentication would bring down the \
+                   drawbacks that smtp has at current situation.\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 \cf0 \
    4. the protectins provided end-to-end by by PGP, S/MIME or GPG \
 \
       ** PGP : Pretty good privacy .\
-           - Public key cryptography : Binding public key to user name and/or email address\
+           - Public key cryptography : Binding public key to user name and/or email address. Distributed mechanism used\
            - There is a middle server that does key management. It stores keys, retrieves keys and distributes keys.\
-\
-           PGP :\
+      ** SMIME : Secure Multipurpose Internet Mail Extension\
+           - Public key cryptography using PKI - public key infrastructure. CA's and other hierarchical levels of certificate\
+              management is used.\
+ \
+           PGP/SMIME :\
            1 . Who needs to have keys registered and associated with their identity?\
-           -----  (User name/email address) needs to be bound to a public key - user could be any communicating party\
+           -----  PGP :  (User name/email address) needs to be bound to a public key - user could be any communicating party\
+           -----  SMIME : each individual must obtain an individual key pair from in house CA or other authorized CA\
 \
-           2. Where and for how long is the email protected, and what kinds of protections are applied \
+           2. Where and for how long is the email protected, and what kinds of protections are applied for PGP/ SMIME\
            -----  Confidentiality : end to end protection using DES/RSA\
            -----  Integrity: provided by using digital signature\
            -----  Non-repudiation: cant say for sure, the key might have been compromised/lost/stolen.\
+           -----  Provides end to end security. Thus the email is encrypted from the sender to receiver, thus never clear text.\
 \
-   3. What are the issues associated with managing the security, and in particular,\
-        which approach is more easily managed?\
------  Issues : Sender's Authenticity, Message Integrity, Non reputability of sender's identity.\
------  Spoofing keys - Distributed architecture of key management - web of trust\
------  Not able to find any trusted signer in the key chain,  how many levels deep should one go ?\
------  Distributed fault tolerant key authentication mechanism - vulnerable to attacks when an \
-         intruder manages to gain trust of some genuine person. \
------  Message integrity is easily manager given the sender uses Digital signature.\
+           3. What are the issues associated with managing the security, and in particular,\
+               which approach is more easily managed?\
+            -----  Issues : Sender's Authenticity, Message Integrity, Non reputability of sender's identity.\
+            -----  Spoofing keys - PGP uses Distributed architecture of key management - web of trust model -which is weak.\
+                                                - SMIME makes it difficult for spoofing of the keys because of centralized system.\
+            -----  If one is not able to find any trusted signer in the key chain,  then how many levels should one look for ?\
+                     This is fixed to 5 as of now, In SMIME this problem does not come into play.\
+            -----  Distributed fault tolerant key authentication mechanism - vulnerable to attacks when an \
+                      intruder manages to gain trust of some genuine person.  SMIME has this drawback of central failure.\
+            -----  Message integrity is easily managed, given that the sender uses Digital signature in both methods.\
 \
 \
-   4. Consider several different attacks against email security, \
-        and explain which approach is most suitable for protecting email \
-        against several different kinds of attacks. \
------  Compromised key server : the recipient key is changed to be of the eavesdroppers key.\
------   Third party attestation of keys need to be in place for associating the key with the senders name.\
------   Attacks on bindings of names with the key identity.\
+          4. Consider several different attacks against email security, \
+              and explain which approach is most suitable for protecting email \
+              against several different kinds of attacks. \
+          -----  Compromised key server : the recipient key is changed to be of the eavesdroppers key. This involves changing\
+                   the keys at the server. This becomes difficult but a possibility which one can exploit.\
+          -----  Third party attestation of keys need to be in place for associating the key with the senders name in PGP.\
+          -----  Attacks on bindings of names with the key identity in SMIME. \
+          -----  Man in the middle attack, both the above mechanisms are prone to it.\
+\
  \
 \
 \
 \
        1.  <- Receivers Public Key   **********************    3. -> Senders Public key\
-     ******************************** PGP KEY SERVER  ********************|\
+     ********************************        KEY SERVER  ********************|\
  *************  			*********************  		          |\
  | SENDER   | -message     						***************\
 *************                                                                                                  | RECEIVER   |  -> Secured Message transfer                                   \
@@ -132,85 +155,8 @@ Email  :: cholera@usc.edu\
 \
 \
 \
-S/MIME --  Secure Multipurpose Internet Mail extension :\
-               --  Uses centrally managed public key infrastructure\
-               --  Provides authentication, message integrity, non repudiation of origin ( digital signature ) and privacy and data \
-                    security ( using encryption).\
-               --  Understand MIME type to get a better understanding of SMIME\
-               --  not deployed as effectively as PGP, not all web clients understand SMIME, it requires browser to execute some   \
-                    code which looks fishy.\
-               --  Digital signature and message encryption is provided using SMIME\
+References :\
 \
 http://technet.microsoft.com/en-us/library/aa995740(EXCHG.65).aspx\
 http://www.net-security.org/article.php?id=816&p=3\
-\
-\
-   1. Who needs to have keys registered and associated with their identity?\
-       ---  one must obtain and install an individual  key/certificate either from in-house CA or from a public CA such as one of \
-             those listed below  \
-   \
-  2. Where and for how long is the email protected, and what kinds of protections are applied\
-       (e.g., confidentiality, integrity, non-repudiation)  - end to end -\
-       DS from central authority.  End to End encryption using public key encryption.\
-\
-   3. What are the issues associated with managing the security, and in particular, which approach is more easily \
-        managed?\
-       ---- Flaws with end to end security. Encryption of malware present along with the message will effectively go through \
-              the gateways to the end users and thus the end users would have the malware delivered. Avoid this by storing the \
-              keys on the gateways, and also perform additional scan when the user decrypts the message.\
-       ----  PKI key management issues - managed by designing efficient way of distributing keys ( in a decentralized way )\
-       ---- Triple wrap on signing, encrypting and then signing again.\
-\
-\
-   4. Consider several different attacks against email security, and explain which approach is most suitable for protecting \
-        email against several different kinds of attacks. \
-       --- Differentiation between the valid content and malware.  \
-       ---  Man in the middle attack.   \
-\
-\
-Issues in email security :\
-- authentication of the sender\
-- content monitoring\
-- protecting the gateways into the mail system - spam filters and virus scanners\
-- storing/archiving the email data - physical storage - backup and recovery solution - Users should backup their own data\
-- loss of data protection and protecting the servers that store the data\
-\
-\
-SMTP :\
--- Issues : - Integrity and confidentiality is doubly when there is not TLS negotiation.\
--- chain of servers there are hops where the authentication happens, it is not madentory ...\
---  server needs to have key registered\
---  phising attacks - \
--- smtp for server to authenticate the client for authentication of the client before the client sends the information passing the   \
-    server\
--- man in the middle attacks\
--- multiple hops authentication\
--- email bombing - \
--- authenticating the user with some identity \
--- internal systems are asumed to be working well\
-\
-\
-Gmail :\
-eves dropping message forgery tampering of messages\
--- encryption of entire message system.\
--- built into the browser, transparent and end point authentication\
--- server needs to have keys registered.\
--- Digital SSL certificate third party authentication\
--- mututal autnetication\
--- attacks : ssl protects only the communication path not on eithrer of the hsots\
--- DS server authentication and mutual can be appllied\
--- Efficient algorithms\
--- no application level protection\
--- \
-\
-\
-POP maintains state : commons connections evavesdropping and hijcking attacks\
-IMAP  does not maintain state :\
-\
-\
-\
-\
-\
-\
-\
 }
