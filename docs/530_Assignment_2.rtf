@@ -1,0 +1,216 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf350
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww13100\viewh13440\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Name :: Kunal Cholera \
+ID        :: 7009453714\
+Email  :: cholera@usc.edu\
+\
+\
+   1. SSL (or TLS) when logging into a service like GMAIL\
+\
+      ---  Who needs to have keys registered and associated with their identity?\
+            ---  The Service provider ( Gmail, yahoo, hotmail etc.. ) needs to have their keys registered with their identity.\
+                  The users ( Clients ) simply have to check the validity of the certificate of the service provider.\
+ \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3500\ql\qnatural\pardirnatural
+\cf0       ---  Where and for how long is the email protected, and what kinds of protections are \
+            applied (e.g., confidentiality, integrity, non-repudiation).\
+            --- Depends, if one SMIME add on certificate of GMAIL then the email would be protected end to end.\
+            --- Normal mail would be protected using the encryption between the client and the server if they choose\
+                 to use SSL connection between them. Now between the hops of different SMTP servers there could be\
+                 a use of SSL, the servers are free to choose whether they want to use it or not, if they don't then it is plain text.\
+            --- Provides - confidentiality using SSL, Digital Signature would provide integrity of the data.\
+            --- None of the mechanism can guarantee non repudiation truly. It can be until the keys are not lost/compromised\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0    \
+      ---  What are the issues associated with managing the security, and in particular, \
+            which approach is more easily managed?\
+            ---   https option and not using http option in case of Gmail would make sure we use a secure authentication\
+                   mechanism instead of an unsecured mechanism, which is all clear text, any one having the network monitoring\
+                   tool like wire-shark could see all the passwords that the user would enter in the login process. This is easy.\
+            ---   Session hijacking : the session key communicated between the client and server, if it is obtained by the\
+                   attacker, then the attacker can pose as the original person and the entire security system is compromised.\
+                   This could be very difficult to manage if there is a Man in the middle attack. Issue time variant session keys\
+                    would make it very easy to manage this security issue\
+    \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3620\ql\qnatural\pardirnatural
+\cf0       ---  Consider several different attacks against email security, and explain which approach \
+            is most suitable for protecting email against several different kinds of attacks. \
+            ---  Denial of mails - Mail bombing would not allow the genuine users to access their email accounts.\
+            ---  Content Monitoring - The attacker would eveasdrop on the message content and can take advantage of it. \
+            ---  Malware Content propagation - Attacker could send malware along with a genuine message.\
+            ---  phising attacks - Attacker may trick the genuine user into believing that the site is valid and get credentials.\
+            *** Approach : Implement a mechanism to have end to end protection and strong mutual authentication of \
+                                       both parties involved in communication.\
+            \
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0    2. SSL or TLS used when retrieving messages using POP or IMAP\
+\
+      ---  Who needs to have keys registered and associated with their identity?\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3500\ql\qnatural\pardirnatural
+\cf0       ---  Where and for how long is the email protected, and what kinds of protections are \
+            applied (e.g., confidentiality, integrity, non-repudiation).\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0    \
+      ---  What are the issues associated with managing the security, and in particular, \
+            which approach is more easily managed?\
+    \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3620\ql\qnatural\pardirnatural
+\cf0       ---  Consider several different attacks against email security, and explain which approach \
+            is most suitable for protecting email against several different kinds of attacks. \
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0 \
+   3. SSL or TLS when uploading messages using SMTP\
+\
+      ---  Who needs to have keys registered and associated with their identity?\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3500\ql\qnatural\pardirnatural
+\cf0       ---  Where and for how long is the email protected, and what kinds of protections are \
+            applied (e.g., confidentiality, integrity, non-repudiation).\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0    \
+      ---  What are the issues associated with managing the security, and in particular, \
+            which approach is more easily managed?\
+    \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ri-3620\ql\qnatural\pardirnatural
+\cf0       ---  Consider several different attacks against email security, and explain which approach \
+            is most suitable for protecting email against several different kinds of attacks. \
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0 \
+   4. the protectins provided end-to-end by by PGP, S/MIME or GPG \
+\
+      ** PGP : Pretty good privacy .\
+           - Public key cryptography : Binding public key to user name and/or email address\
+           - There is a middle server that does key management. It stores keys, retrieves keys and distributes keys.\
+\
+           PGP :\
+           1 . Who needs to have keys registered and associated with their identity?\
+           -----  (User name/email address) needs to be bound to a public key - user could be any communicating party\
+\
+           2. Where and for how long is the email protected, and what kinds of protections are applied \
+           -----  Confidentiality : end to end protection using DES/RSA\
+           -----  Integrity: provided by using digital signature\
+           -----  Non-repudiation: cant say for sure, the key might have been compromised/lost/stolen.\
+\
+   3. What are the issues associated with managing the security, and in particular,\
+        which approach is more easily managed?\
+-----  Issues : Sender's Authenticity, Message Integrity, Non reputability of sender's identity.\
+-----  Spoofing keys - Distributed architecture of key management - web of trust\
+-----  Not able to find any trusted signer in the key chain,  how many levels deep should one go ?\
+-----  Distributed fault tolerant key authentication mechanism - vulnerable to attacks when an \
+         intruder manages to gain trust of some genuine person. \
+-----  Message integrity is easily manager given the sender uses Digital signature.\
+\
+\
+   4. Consider several different attacks against email security, \
+        and explain which approach is most suitable for protecting email \
+        against several different kinds of attacks. \
+-----  Compromised key server : the recipient key is changed to be of the eavesdroppers key.\
+-----   Third party attestation of keys need to be in place for associating the key with the senders name.\
+-----   Attacks on bindings of names with the key identity.\
+ \
+\
+\
+\
+       1.  <- Receivers Public Key   **********************    3. -> Senders Public key\
+     ******************************** PGP KEY SERVER  ********************|\
+ *************  			*********************  		          |\
+ | SENDER   | -message     						***************\
+*************                                                                                                  | RECEIVER   |  -> Secured Message transfer                                   \
+     *            2. -> Digital Signature  + Encryption of message                ***|*********** \
+     ************************************************************************|\
+\
+\
+\
+S/MIME --  Secure Multipurpose Internet Mail extension :\
+               --  Uses centrally managed public key infrastructure\
+               --  Provides authentication, message integrity, non repudiation of origin ( digital signature ) and privacy and data \
+                    security ( using encryption).\
+               --  Understand MIME type to get a better understanding of SMIME\
+               --  not deployed as effectively as PGP, not all web clients understand SMIME, it requires browser to execute some   \
+                    code which looks fishy.\
+               --  Digital signature and message encryption is provided using SMIME\
+\
+http://technet.microsoft.com/en-us/library/aa995740(EXCHG.65).aspx\
+http://www.net-security.org/article.php?id=816&p=3\
+\
+\
+   1. Who needs to have keys registered and associated with their identity?\
+       ---  one must obtain and install an individual  key/certificate either from in-house CA or from a public CA such as one of \
+             those listed below  \
+   \
+  2. Where and for how long is the email protected, and what kinds of protections are applied\
+       (e.g., confidentiality, integrity, non-repudiation)  - end to end -\
+       DS from central authority.  End to End encryption using public key encryption.\
+\
+   3. What are the issues associated with managing the security, and in particular, which approach is more easily \
+        managed?\
+       ---- Flaws with end to end security. Encryption of malware present along with the message will effectively go through \
+              the gateways to the end users and thus the end users would have the malware delivered. Avoid this by storing the \
+              keys on the gateways, and also perform additional scan when the user decrypts the message.\
+       ----  PKI key management issues - managed by designing efficient way of distributing keys ( in a decentralized way )\
+       ---- Triple wrap on signing, encrypting and then signing again.\
+\
+\
+   4. Consider several different attacks against email security, and explain which approach is most suitable for protecting \
+        email against several different kinds of attacks. \
+       --- Differentiation between the valid content and malware.  \
+       ---  Man in the middle attack.   \
+\
+\
+Issues in email security :\
+- authentication of the sender\
+- content monitoring\
+- protecting the gateways into the mail system - spam filters and virus scanners\
+- storing/archiving the email data - physical storage - backup and recovery solution - Users should backup their own data\
+- loss of data protection and protecting the servers that store the data\
+\
+\
+SMTP :\
+-- Issues : - Integrity and confidentiality is doubly when there is not TLS negotiation.\
+-- chain of servers there are hops where the authentication happens, it is not madentory ...\
+--  server needs to have key registered\
+--  phising attacks - \
+-- smtp for server to authenticate the client for authentication of the client before the client sends the information passing the   \
+    server\
+-- man in the middle attacks\
+-- multiple hops authentication\
+-- email bombing - \
+-- authenticating the user with some identity \
+-- internal systems are asumed to be working well\
+\
+\
+Gmail :\
+eves dropping message forgery tampering of messages\
+-- encryption of entire message system.\
+-- built into the browser, transparent and end point authentication\
+-- server needs to have keys registered.\
+-- Digital SSL certificate third party authentication\
+-- mututal autnetication\
+-- attacks : ssl protects only the communication path not on eithrer of the hsots\
+-- DS server authentication and mutual can be appllied\
+-- Efficient algorithms\
+-- no application level protection\
+-- \
+\
+\
+POP maintains state : commons connections evavesdropping and hijcking attacks\
+IMAP  does not maintain state :\
+\
+\
+\
+\
+\
+\
+\
+}
