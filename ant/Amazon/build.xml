@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<project name="Amazon" default="all" basedir=".">
+
+  <property name="project-name" value="Amazon" />
+	
+  <property name="classes.dir" value="classes" />
+  <property name="src.dir" value="src" />
+  <property name="lib.dir" value="lib" />
+  <property name="build.dir" value="build" />
+  <property name="webapp.dir" value="webapp" />
+  <property name="dist.dir" value="dist" />
+  <property name="jsp.dir" value="jsp" />
+
+  <property name="jar-file-location" value="${dist.dir}/${project-name}.jar" />
+  <property name="war-file-location" value="${dist.dir}/${project-name}.war" />	
+	
+  <path id="project.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <taskdef resource="org/apache/catalina/ant/catalina.tasks" classpathref="project.classpath"/>
+ 
+  <target name="prepare">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+  </target>
+
+  <target name="compile" depends="prepare" unless="src.modified">
+    <javac source="1.5" srcdir="${src.dir}" destdir="${build.dir}" classpathref="project.classpath" deprecation="on" optimize="on" debug="on"/>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar-file-location}" basedir="${build.dir}" />
+  </target>
+
+  <target name="war" depends="compile">
+    <war destfile="${war-file-location}" webxml="${webapp.dir}/WEB-INF/web.xml">
+      <fileset dir="${jsp.dir}"/>
+    </war>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${classes.dir}"/>
+  </target>
+
+<!-- Loading the properties file  --> 
+  <property file="deployer.properties" />
+
+<!-- Added as part of the deployer -->
+<target name="deploy" description="Deploy web application" depends="war">
+  <deploy url="${url}" username="${username}" password="${password}"
+          path="${path}" war="${war-file-location}" update="true" />
+</target>
+
+<target name="undeploy" description="Undeploy web application">
+  <undeploy url="${url}" username="${username}" password="${password}"
+            path="${path}"/>
+</target>
+
+<!-- Webapp lifecycle control -->
+
+<target name="start" description="Start web application">
+  <start url="${url}" username="${username}" password="${password}"
+         path="${path}"/>
+</target>
+
+<target name="reload" description="Reload web application">
+  <reload url="${url}" username="${username}" password="${password}"
+          path="${path}"/>
+</target>
+
+<target name="stop" description="Stop web application">
+  <stop url="${url}" username="${username}" password="${password}"
+        path="${path}"/>
+</target>
+<!--    -->
+
+<!-- Deployer addition -->
+
+</project>
+
