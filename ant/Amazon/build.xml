@@ -11,6 +11,7 @@
   <property name="webapp.dir" value="webapp" />
   <property name="dist.dir" value="dist" />
   <property name="jsp.dir" value="jsp" />
+  <property name="assets.dir" value="assets" />
 
   <property name="jar-file-location" value="${dist.dir}/${project-name}.jar" />
   <property name="war-file-location" value="${dist.dir}/${project-name}.war" />	
@@ -38,7 +39,10 @@
 
   <target name="war" depends="compile">
     <war destfile="${war-file-location}" webxml="${webapp.dir}/WEB-INF/web.xml">
-      <fileset dir="${jsp.dir}"/>
+      <fileset dir=".">
+        <include name="assets/**/*" />
+        <include name="jsp/**/*" />
+      </fileset>
     </war>
   </target>
 
@@ -51,7 +55,7 @@
   <property file="deployer.properties" />
 
 <!-- Added as part of the deployer -->
-<target name="deploy" description="Deploy web application" depends="war">
+<target name="deploy" description="Deploy web application" depends="war,undeploy">
   <deploy url="${url}" username="${username}" password="${password}"
           path="${path}" war="${war-file-location}" update="true" />
 </target>
