@@ -1,0 +1,3 @@
+Basic interview codes and tips and tricks...
+
+An idea to educate myself into coding more and more.
